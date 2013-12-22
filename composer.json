@@ -1,0 +1,12 @@
+{
+    "name": "blainesch/alfmarks.php",
+    "type": "library",
+    "homepage": "http://github.com/blainesch/alfmarks.php",
+    "license": "BSD",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "mikey179/vfsStream": "1.3.*@dev"
+    }
+}
