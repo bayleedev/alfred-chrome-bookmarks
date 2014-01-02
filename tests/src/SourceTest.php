@@ -15,7 +15,7 @@ class SourceTest extends Unit {
 	}
 
 	public function testRead() {
-		$_SERVER['profile'] = $this->createProfile(array(
+		$_SERVER['PROFILE'] = $this->createProfile(array(
 			array(
 				'id' => 1,
 				'name' => 'Google',
@@ -32,7 +32,14 @@ class SourceTest extends Unit {
 				'url' => 'http://yahoo.com',
 			),
 		));
-		$nodes = $this->subject()->read(new Query(array(
+		$subject = $this->subject(array(), array(
+			'mock' => true,
+			'methods' => array('normalizeFile'),
+		));
+		$subject->expects($this->any())
+			->method('normalizeFile')
+			->will($this->returnValue($_SERVER['PROFILE']));
+		$nodes = $subject->read(new Query(array(
 			'model' => 'alfmarks\BookmarkModel',
 			'term' => 'Goo',
 		)));
@@ -52,7 +59,7 @@ class SourceTest extends Unit {
 	}
 
 	public function testNormalizeGivesBackNodes() {
-		$result = $this->subject()->normalize(range(1,2), function() {
+		$result = $this->subject()->normalizeData(range(1,2), function() {
 			return 'yes';
 		});
 		$expected = array('yes');

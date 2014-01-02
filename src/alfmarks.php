@@ -81,9 +81,9 @@ class Query {
 class Source {
 
 	public function read($query) {
-		$file = realpath(str_replace('~/', $_SERVER['HOME'] . '/', $_SERVER['PROFILE']));
+		$file = $this->normalizeFile($_SERVER['PROFILE']);
 		$json = json_decode(file_get_contents($file), true);
-		return $this->normalize($json, function($obj) use($query) {
+		return $this->normalizeData($json, function($obj) use($query) {
 			if (preg_grep($query->term(), array_filter($obj, 'is_string'))) {
 				return new $query->model($obj);
 			}
@@ -91,14 +91,18 @@ class Source {
 		});
 	}
 
-	public function normalize($obj, $callback) {
+	public function normalizeFile($file) {
+		return realpath(str_replace('~/', $_SERVER['HOME'] . '/', $file));
+	}
+
+	public function normalizeData($obj, $callback) {
 		$nodes = array();
 		if ($item = $callback($obj)) {
 			$nodes[] = $item;
 		}
 		foreach ($obj as $value) {
 			if (is_array($value)) {
-				$nodes = array_merge($nodes, $this->normalize($value, $callback));
+				$nodes = array_merge($nodes, $this->normalizeData($value, $callback));
 			}
 		}
 		return $nodes;
