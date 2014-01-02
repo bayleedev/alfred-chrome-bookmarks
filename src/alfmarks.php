@@ -81,7 +81,8 @@ class Query {
 class Source {
 
 	public function read($query) {
-		$json = json_decode(file_get_contents($_SERVER['profile']), true);
+		$file = realpath(str_replace('~/', $_SERVER['HOME'] . '/', $_SERVER['PROFILE']));
+		$json = json_decode(file_get_contents($file), true);
 		return $this->normalize($json, function($obj) use($query) {
 			if (preg_grep($query->term(), array_filter($obj, 'is_string'))) {
 				return new $query->model($obj);
@@ -104,3 +105,5 @@ class Source {
 	}
 
 }
+
+// echo BookmarkModel::find($_SERVER['argv'][1])->to_xml();
