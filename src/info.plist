@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>connections</key>
+	<dict>
+		<key>194C16BC-2EBE-4353-8BF4-329E0BAFB929</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F9A6FD58-42ED-4F95-B8CD-F323689253FD</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Blaine Schmeisser</string>
+	<key>description</key>
+	<string>Search your Chrome bookmarks (really fast!).</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Chrome Bookmarks</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>F9A6FD58-42ED-4F95-B8CD-F323689253FD</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>bb</string>
+				<key>runningsubtext</key>
+				<string>Searching...</string>
+				<key>script</key>
+				<string>PROFILE="~/Library/Application Support/Google/Chrome/Default/Bookmarks" php bookmarks.php {query}</string>
+				<key>subtext</key>
+				<string>Searching...</string>
+				<key>title</key>
+				<string>Chrome Bookmarks</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>194C16BC-2EBE-4353-8BF4-329E0BAFB929</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>194C16BC-2EBE-4353-8BF4-329E0BAFB929</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>F9A6FD58-42ED-4F95-B8CD-F323689253FD</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://github.com/blainesch</string>
+</dict>
+</plist>
