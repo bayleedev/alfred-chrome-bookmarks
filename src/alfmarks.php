@@ -37,7 +37,9 @@ class BookmarkModel {
 		$item->addAttribute('arg', $this->data['url']);
 		$item->addAttribute('uid', $this->data['id']);
 		$item->addChild('title', $this->data['name']);
-		$item->addChild('subtitle', $this->data['url']);
+		// $item->addChild('subtitle', $this->data['url']);
+		// to make it recognize "&" in the url correctly
+		$item->subtitle = $this->data['url'];
 		return $item;
 	}
 
