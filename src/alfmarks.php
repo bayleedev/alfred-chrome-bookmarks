@@ -72,8 +72,7 @@ class Query {
 	 * @return string
 	 */
 	public function term() {
-		// 'fo /O'.replace(/[^a-z]/ig, '').replace(/(.)/g, '.*$1') + '.*'
-		return '/' . $this->term . '/i';
+		return '/' . preg_replace('/(.)/', '.*$1', preg_replace('/[^a-z]+/i', '', $this->term)) . '.*/i';
 	}
 
 }
