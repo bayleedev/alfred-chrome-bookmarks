@@ -14,6 +14,45 @@ class SourceTest extends Unit {
 		return $file;
 	}
 
+	public function testSkippedRead() {
+		$_SERVER['PROFILE'] = $this->createProfile(array(
+			array(
+				'id' => 1,
+				'name' => 'Google',
+				'url' => 'http://google.com',
+			),
+			array(
+				'id' => 2,
+				'name' => 'Gmail',
+				'url' => 'http://mail.google.com',
+			),
+			array(
+				'id' => 3,
+				'name' => 'Yahoo!',
+				'url' => 'http://yahoo.com',
+			),
+		));
+		$subject = $this->subject(array(), array(
+			'mock' => true,
+			'methods' => array('normalizeFile'),
+		));
+		$subject->expects($this->any())
+			->method('normalizeFile')
+			->will($this->returnValue($_SERVER['PROFILE']));
+		$nodes = $subject->read(new Query(array(
+			'model' => 'alfmarks\BookmarkModel',
+			'term' => 'Gil',
+		)));
+		$expected = array(
+			new BookmarkModel(array(
+				'id' => 2,
+				'name' => 'Gmail',
+				'url' => 'http://mail.google.com',
+			)),
+		);
+		$this->assertEquals($expected, $nodes);
+	}
+
 	public function testRead() {
 		$_SERVER['PROFILE'] = $this->createProfile(array(
 			array(
