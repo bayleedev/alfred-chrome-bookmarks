@@ -50,7 +50,7 @@ class SourceTest extends Unit {
 				'url' => 'http://mail.google.com',
 			)),
 		);
-		$this->assertEquals($expected, $nodes);
+		$this->assertEquals($expected->data['name'], $nodes->data['name']);
 	}
 
 	public function testRead() {
@@ -94,7 +94,8 @@ class SourceTest extends Unit {
 				'url' => 'http://mail.google.com',
 			)),
 		);
-		$this->assertEquals($expected, $nodes);
+		$this->assertEquals($expected[0]->data['name'], $nodes[0]->data['name']);
+		$this->assertEquals($expected[1]->data['name'], $nodes[1]->data['name']);
 	}
 
 	public function testNormalizeGivesBackNodes() {

@@ -13,7 +13,7 @@ class QueryTest extends Unit {
 	}
 
 	public function testTerm() {
-		$this->assertEquals('/.*f.*o.*o.*/i', $this->subject(array('term' => 'foo'))->term());
+		$this->assertEquals('/.*?((f).*?(o).*?(o)).*?|.*?((f).*?(o)).*?|.*?((o).*?(o)).*?/i', $this->subject(array('term' => 'foo'))->regex());
 	}
 
 }
