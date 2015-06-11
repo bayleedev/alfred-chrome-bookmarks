@@ -78,9 +78,11 @@ class Query {
 	}
 
 	public function multiScore(array $words) {
-		return array_reduce($words, function($memo, $item) {
-			return max($memo, $this->score($item));
-		});
+		$max = 0;
+		foreach ($words as $word) {
+			$max = max($max, $this->score($word));
+		}
+		return $max;
 	}
 
 	public function score($string) {
@@ -156,3 +158,4 @@ class Source {
 	}
 
 }
+echo BookmarkModel::find($_SERVER['argv'][1])->sort()->to_xml();
