@@ -87,7 +87,8 @@ class Query {
 
 	public function score($string) {
 		preg_match($this->regex(), $string, $matches);
-		$matches = array_filter($matches, 'strlen');
+		$matches = array_values(array_filter($matches, 'strlen'));
+		if (empty($matches)) return;
 		$primary = strlen(implode('', array_slice($matches, 2))) / strlen($this->term);
 		$secondary = abs(strlen($matches[1]) - strlen($this->term)) / 100;
 		return $primary - $secondary;

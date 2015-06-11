@@ -50,7 +50,7 @@ class SourceTest extends Unit {
 				'url' => 'http://mail.google.com',
 			)),
 		);
-		$this->assertEquals($expected->data['name'], $nodes->data['name']);
+		$this->assertEquals($expected[0]->data['name'], $nodes[0]->data['name']);
 	}
 
 	public function testRead() {
