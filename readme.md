@@ -1,4 +1,7 @@
 ## Chrome Bookmarks
+
+[![Build Status](https://travis-ci.org/blainesch/alfred-chrome-bookmarks.svg?branch=master)](https://travis-ci.org/blainesch/alfred-chrome-bookmarks)
+
 Searches through your current Chrome bookmarks. This does not cache them in a
 database, but reads directly from the JSON bookmarks file. This makes it
 drastically faster.
@@ -10,5 +13,6 @@ results first.
 ![screenshot](screenshot.png)
 
 ## Installing
- * Download [Chrome Bookmarks](https://github.com/blainesch/alfred-chrome-bookmarks/raw/master/Chrome%20Bookmarks.alfredworkflow)
- * Open and follow instructions!
+
+* Download [Chrome Bookmarks](https://github.com/blainesch/alfred-chrome-bookmarks/raw/master/Chrome%20Bookmarks.alfredworkflow)
+* Open and follow instructions!
