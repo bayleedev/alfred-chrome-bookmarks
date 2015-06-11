@@ -158,4 +158,3 @@ class Source {
 	}
 
 }
-echo BookmarkModel::find($_SERVER['argv'][1])->sort()->to_xml();
