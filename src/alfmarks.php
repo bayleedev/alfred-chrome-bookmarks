@@ -133,7 +133,7 @@ class Source {
 		return $this->normalizeData($json, function($obj) use($query) {
 			if (!isset($obj['url'], $obj['id'], $obj['name'])) return;
 			$words = array_filter($obj, 'is_string');
-			if (($score = $query->multiScore($words)) > self::MIN_MATCH) {
+			if (($score = $query->multiScore($words)) > static::MIN_MATCH) {
 				return new $query->model($obj, $score);
 			}
 			return;
