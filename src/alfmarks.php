@@ -130,10 +130,11 @@ class Source {
 	public function read($query) {
 		$file = $this->normalizeFile($_SERVER['PROFILE']);
 		$json = json_decode(file_get_contents($file), true);
-		return $this->normalizeData($json, function($obj) use($query) {
+		$min = self::MIN_MATCH;
+		return $this->normalizeData($json, function($obj) use($query, $min) {
 			if (!isset($obj['url'], $obj['id'], $obj['name'])) return;
 			$words = array_filter($obj, 'is_string');
-			if (($score = $query->multiScore($words)) > static::MIN_MATCH) {
+			if (($score = $query->multiScore($words)) > $min) {
 				return new $query->model($obj, $score);
 			}
 			return;
