@@ -129,8 +129,16 @@ class Source {
 	const MIN_MATCH = 0.25;
 
 	public function read($query) {
-		$file = $this->normalizeFile($_SERVER['PROFILE']);
-		$json = json_decode(file_get_contents($file), true);
+		$items = array();
+		$pattern = $this->normalizeFile($_SERVER['PROFILE']);
+		foreach (glob($pattern) as $filename) {
+			$items = array_merge($items, $this->readFile($query, $filename));
+		}
+		return $items;
+	}
+
+	public function readFile($query, $filename) {
+		$json = json_decode(file_get_contents($filename), true);
 		$min = self::MIN_MATCH;
 		return $this->normalizeData($json, function($obj) use($query, $min) {
 			if (!isset($obj['url'], $obj['id'], $obj['name'])) return;
@@ -143,7 +151,7 @@ class Source {
 	}
 
 	public function normalizeFile($file) {
-		return realpath(str_replace('~/', $_SERVER['HOME'] . '/', $file));
+		return str_replace('~/', $_SERVER['HOME'] . '/', $file);
 	}
 
 	public function normalizeData($obj, $callback) {
