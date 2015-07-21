@@ -48,7 +48,27 @@ class BookmarkModel {
 		$item->addAttribute('uid', $this->data['id'] . $this->score);
 		$item->title = $this->data['name'];
 		$item->subtitle = $this->data['url'];
+		$item->icon = $this->favicon();
 		return $item;
+	}
+
+	public function favicon() {
+		$path = "./icons/{$this->domain()}.ico";
+		if (!file_exists($path)) {
+			file_put_contents($path, file_get_contents($this->faviconUrl()));
+		}
+		return $path;
+	}
+
+	public function faviconUrl() {
+		$url = parse_url($this->data['url']);
+		$port = empty($url['port']) ? 80 : $url['port'];
+		return "{$url['scheme']}://{$url['host']}:{$url['port']}/favicon.ico";
+	}
+
+	public function domain() {
+		$url = parse_url($this->data['url']);
+		return $url['host'];
 	}
 
 	public static function find($term) {
