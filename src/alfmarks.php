@@ -87,20 +87,27 @@ class Query {
 
 	public function score($string) {
 		preg_match($this->regex(), $string, $matches);
-		$matches = array_values(array_filter($matches, 'strlen'));
+		$matched_chars = array_slice(array_values(array_filter($matches, 'strlen')), 2);
 		if (empty($matches)) return;
-		$primary = strlen(implode('', array_slice($matches, 2))) / strlen($this->term);
-		$secondary = abs(strlen($matches[1]) - strlen($this->term)) / 100;
-		return $primary - $secondary;
+		// How many characters you matched from the term
+		$positive_score = strlen(implode('', $matched_chars)) / strlen($this->term);
+		// Deductions for longer strings
+		$negative_score = abs(strlen($matches[1]) - strlen($this->term)) / 100;
+		return $positive_score - $negative_score;
 	}
 
 	public function regex() {
-		return $this->regex = $this->regex ?: '/' . implode('|', array_map(function($el) {
-			return implode('|', array_map(function($el) {
-				$word = preg_replace('(.)', '.*?(\0)', $el) . '.*?';
-				return preg_replace('/^(.{3})(.*)(.{3})$/', '\1(\2)\3', $word);
-			}, $el));
-		}, $this->grams())) . '/i';
+		if (!$this->regex) {
+			$this->regex = '/.*?((';
+			$this->regex .= implode(')).*?|.*?((', array_map(function($gram) {
+				$gram_chars = str_split($gram);
+				return implode(').*?(', array_map(function($gram_char) {
+					return preg_quote($gram_char);
+				}, $gram_chars));
+			}, $this->grams()));
+			$this->regex .= ')).*?/i';
+		}
+		return $this->regex;
 	}
 
 	public function grams() {
@@ -108,7 +115,7 @@ class Query {
 		$min = ceil($this->accuracy * $max);
 		$grams = array();
 		foreach (range($max, $min) as $length) {
-			$grams[$length] = $this->gramsByLength($length);
+			$grams = array_merge($grams, $this->gramsByLength($length));
 		}
 		return $grams;
 	}

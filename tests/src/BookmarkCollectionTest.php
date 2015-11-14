@@ -10,10 +10,4 @@ class BookmarkCollectionTest extends Unit {
 		$this->assertEquals($result, $expected);
 	}
 
-	public function callsToXmlOnNodes() {
-		$stub = $this->getMockBuilder('stdclass')->getMock();
-		$stub->expects($this->once())->method('to_xml');
-		$this->subject(array($stub))->to_xml();
-	}
-
 }
