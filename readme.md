@@ -6,7 +6,7 @@ Searches through your current Chrome bookmarks. This does not cache them in a
 database, but reads directly from the JSON bookmarks file. This makes it
 drastically faster.
 
-This will search trough the name of your bookmark and the URL. It will split your
+This will search through the name of your bookmark and the URL. It will split your
 query into grams for inclusive matching and a ranking system to show relevant
 results first.
 
