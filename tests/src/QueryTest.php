@@ -16,4 +16,8 @@ class QueryTest extends Unit {
 		$this->assertEquals('/.*?((f).*?(o).*?(o)).*?|.*?((f).*?(o)).*?|.*?((o).*?(o)).*?/i', $this->subject(array('term' => 'foo'))->regex());
 	}
 
+	public function testTermWithCharacters() {
+		$this->assertEquals('/.*?((\]).*?(\[).*?(\^)).*?|.*?((\]).*?(\[)).*?|.*?((\[).*?(\^)).*?/i', $this->subject(array('term' => '][^'))->regex());
+	}
+
 }
