@@ -9,7 +9,9 @@ class Unit extends PHPUnit_Framework_TestCase {
 		);
 		$class = 'alfmarks\\' . str_replace('Test', '', get_called_class());
 		if ($options['mock']) {
-			return $this->getMock($class, $options['methods'], $params);
+			return $this->getMockBuilder($class)
+				->setMethods($options['methods'])
+				->getMock();
 		}
 		return new $class($params);
 	}
