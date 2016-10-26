@@ -53,7 +53,7 @@ class BookmarkModel {
 
 	public static function find($term) {
 		$source = new Source();
-		$data = $source->read(new Query(array('term' => normalizer_normalize($term), 'model' => __CLASS__)));
+		$data = $source->read(new Query(array('term' => $term, 'model' => __CLASS__)));
 		return new BookmarkCollection($data);
 	}
 }
